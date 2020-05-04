@@ -2,13 +2,15 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import "./App.css";
 
+import theme from "utils/theme";
+
 import { Navigation } from "components";
 
 function App() {
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <div className="App">
-        <Navigation />
+        <Navigation items={[]} />
       </div>
     </ThemeProvider>
   );
