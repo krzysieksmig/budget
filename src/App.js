@@ -5,12 +5,18 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import theme from "utils/theme";
 
-import { Navigation, Wrapper } from "components";
+import {
+  Navigation,
+  Wrapper,
+  LoadingIndicator,
+  Button,
+  Homepage,
+} from "components";
 
 function App() {
   const { i18n } = useTranslation();
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <GlobalStyles />
 
       <Router>
@@ -21,31 +27,41 @@ function App() {
           ]}
           RightElement={
             <div>
-              <button onClick={() => i18n.changeLanguage("pl")}>
+              <Button
+                variant="regular"
+                onClick={() => i18n.changeLanguage("pl")}
+              >
                 JAK WRZUCIC TO DODAC .ENV DO ID I API PL
-              </button>
-              <button onClick={() => i18n.changeLanguage("en")}>EN</button>
+              </Button>
+              <Button
+                variant="regular"
+                onClick={() => i18n.changeLanguage("en")}
+              >
+                EN
+              </Button>
             </div>
           }
         />
         <Wrapper>
           <Switch>
             <Route exact path="/">
-              Homepage
+              <Homepage />
             </Route>
             <Route path="/budget">Buget page</Route>
           </Switch>
         </Wrapper>
       </Router>
-    </ThemeProvider>
+    </>
   );
 }
 
 function RootApp() {
   return (
-    <React.Suspense fallback="Loading.......">
-      <App />
-    </React.Suspense>
+    <ThemeProvider theme={theme}>
+      <React.Suspense fallback={<LoadingIndicator />}>
+        <App />
+      </React.Suspense>
+    </ThemeProvider>
   );
 }
 
